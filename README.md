@@ -27,7 +27,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 nmp
 ```
 
-si ca affiche  ca c'est benef
+Infos en plus :
 ```bash
 Usage:
 
@@ -118,7 +118,7 @@ Ouvrez le lien : http://localhost:3000
 Attendez !
 Et hop C'est bon pour vous !
 
-# ECE-In-2023
+# ECEIN
 
 
 Contenus d'un post :
