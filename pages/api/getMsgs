@@ -9,7 +9,12 @@ export default async function handler(req, res) {
     
     dbconnection.connect();
     console.log('DB connected');
-    const query = `SELECT * FROM utilisateur`;
+    const query = `
+    SELECT message.*
+    FROM message
+    JOIN amis ON message.FRIENDID = amis.FRIENDID
+    WHERE amis.USERID1 = 3 OR amis.USERID2 = 3;
+  `; ///Rajouter ensuite la table utilisateurs pour avoir pseudo et pfp
     const values = [];
     const [data] = await dbconnection.query(query, values);
     dbconnection.end();
@@ -19,5 +24,4 @@ export default async function handler(req, res) {
     res.status(500).json({ message: error.message });
   }
 
-}
-
+} 
