@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import EventPreview from '../components/EventPreview';
 import PostPreview from '../components/PostPreview';
+import TableEmplois from '../components/TableEmplois';
+
 
 function Emplois(props) {
   const isAuthenticated = true;
@@ -17,12 +19,20 @@ function Emplois(props) {
 
       <Layout>
         
-        <div>
-            
-            <h1>Emplois</h1>
+      <div class="container mx-auto">
         
-        </div> 
+        <h1 className="m-5 text-5xl font-bold mt-6">
+                Mes Emplois
+        </h1>
 
+        <div className="m-5 ">
+          <TableEmplois/>
+        </div>
+        
+  
+
+        </div>
+      
       
 
       </Layout>   
