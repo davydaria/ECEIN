@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import EventPreview from '../components/EventPreview';
-import PostPreview from '../components/PostPreview';
-import TableReseau from '../components/TableReseau';
+import RowTable from '@/components/RowTable';
 
 function Reseau(props) {
   const isAuthenticated = true;
@@ -17,9 +15,36 @@ function Reseau(props) {
       </Head>
 
       <Layout>
+
+      <div class="container mx-auto">
         
-        {content.map((user) => (
-          <TableReseau
+        <h1 className="m-5 text-5xl font-bold mt-6">
+                Mon Réseau
+        </h1>
+        
+        <div className="m-5 "> 
+
+        <div className="overflow-x-auto w-full">
+            <table className="table w-full">
+                {/* head */}
+                <thead>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" className="checkbox" />
+                            </label>
+                        </th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Role</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+
+          {content.map((user) => (
+          
+          <RowTable
           nom={user.NOM}
           prenom={user.PRENOM}
           pseudo={user.PSEUDO}
@@ -27,11 +52,29 @@ function Reseau(props) {
           description={user.DESCRIPTION}
           role={user.ROLE}
           />
+          
         ))}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>NOM</th>
+                        <th>Description</th>
+                        <th>Role</th>
+                        
+                    </tr>
+                </tfoot>
+
+            </table>
+        </div>
+
+
+        </div>
+        
 
         
       
-         
+         </div>
         
 
         
