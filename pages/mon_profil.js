@@ -7,6 +7,7 @@ import PostPreview from '../components/PostPreview';
 import UserPresentationCard from '../components/UserPresentationCard';
 import withAuth from './withAuth';
 
+//page Mon profil
 function Profil(props) {
   const isAuthenticated = true;
 
@@ -14,12 +15,13 @@ function Profil(props) {
   const [iduser, setIdUser] = useState('');
   const [compt, setCompt] = useState(0);
 
+  //recuperer utlisateur co
   useEffect(() => {
     try {
       const storedUser = JSON.parse(localStorage.getItem('user')).id;
       if (storedUser) {
-        setIdUser(storedUser);
-        console.log(iduser);
+        setIdUser(storedUser); //récuperer l'identifiant de l'utilisateur
+        
       }
     } catch (error) {
       console.log('Erreur lors du parsing du JSON depuis le localStorage');
@@ -41,11 +43,14 @@ function Profil(props) {
         break;
       }
     }
-
+ 
     let completedFields = 0;
 
-    console.log(utilisateur[compt]);
+    console.log("connecte en tant que : "+iduser);
+    console.log("verif : "+compt); //vaut 0 ?                                            /******* PB ICI */
+    console.log(utilisateur[iduser-1]); //iduser-1 car la tableau d'utilisateurs commence à 0 ici (et à 1 dans la BDD)
 
+    //verifier si les champs sont remplis
     if (utilisateur[compt]?.PHOTO !== '') {
       completedFields++;
     }
@@ -58,7 +63,8 @@ function Profil(props) {
     if (utilisateur[compt]?.FORMATION !== null) {
       completedFields++;
     }
-
+    
+    //calculer % de champs remplis du profil
     const totalFields = 4; 
     const profileCompletion = (completedFields / totalFields) * 100;
     setNbChampsRemplis(profileCompletion);
@@ -78,6 +84,7 @@ function Profil(props) {
         <div className="m-4">
           <div className="grid grid-cols-5 gap-x-2 justify-items-center">
             <div className="col-span-2 row-span-2">
+              {/** information de l'utilisateur */}
               <UserPresentationCard
                 identifiant={utilisateur[compt]?.IDENTIFIANT}
                 nom={utilisateur[compt]?.NOM}
@@ -91,11 +98,12 @@ function Profil(props) {
             <div className="grid justify-items-center content-center">
               <p>{varTxt}</p>
               <br></br>
+              {/**indiquer pourcentage de champs remplis */}
               <div className="radial-progress" style={{ '--value': nbChampsRemplis }}>
                 {nbChampsRemplis}%
               </div>
             </div>
-
+            {/**indiquer quels champs sont remplis */}
             <ul className="steps steps-vertical mt-6">
               <li className={`step ${varPhoto}`}>Photo</li>
               <li className={`step ${varImFond}`}>Image de fond</li>
