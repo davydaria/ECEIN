@@ -7,11 +7,8 @@ import withAuth from './withAuth';
 import { useEffect, useState } from 'react';
 
 //fonction determine si l'USERID du msg est le meme que l'utilisateur ou nn
-<<<<<<< Updated upstream
-=======
 // -> savoir si c'est un msg reçu ou envoyé
 /*
->>>>>>> Stashed changes
 function quelSensMsg(idutil, idenvoyeur){
   const[sensMsg, setSensMsg] = useState(0); //0 ou 1 considere comme msg reçu par defaut
   useEffect(() => { 
@@ -22,39 +19,19 @@ function quelSensMsg(idutil, idenvoyeur){
       console.log("msg envoye :"+idenvoyeur);
     }
 
-<<<<<<< Updated upstream
-  }, []);
-=======
   }, [setSensMsg]); //val par défaut de setSensMsg
->>>>>>> Stashed changes
   return(
       sensMsg
   );
 }
-<<<<<<< Updated upstream
-=======
 */
->>>>>>> Stashed changes
+
 
 //page Messagerie
  function Messagerie(props) {
   const isAuthenticated = true;
  
-<<<<<<< Updated upstream
-  const content = props.users_data;
-  console.log(content);
-  const [iduser, setIdUser] = useState(0);
-  const [compt, setCompt] = useState(0);
-  const[sensMsg, setSensMsg] = useState(0); //0 ou 1 considere comme msg reçu par defaut
 
-  //récuperer l'identifiant (mail/nom) de la personne connectée
-  useEffect(() => { //pour eviter erreur d'"hydration", va attendre d'avoir les valeurs pour charger page
-    try {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setIdUser(parsedUser.id);
-=======
   //const content = props.users_data;
   const [content, setContent] = useState([]);
   //console.log(content); 
@@ -70,35 +47,11 @@ function quelSensMsg(idutil, idenvoyeur){
       if (storedUser) {
         setIdUser(storedUser); //récuperer l'identifiant de l'utilisateur
         
->>>>>>> Stashed changes
+
       }
     } catch (error) {
       console.log('Erreur lors du parsing du JSON depuis le localStorage');
     }
-<<<<<<< Updated upstream
-
-
-    ///jsp ce que je dois mettre dedans et ds les crochets
-  }, []);
-  console.log("iduser av return:"+iduser); 
-
-  //console.log("content length: "+content.length);
-
-  //savoir si c'est un msg reçu ou envoyé
-  //A MODIF FAUT FAIRE CA AU DERNIER MOMENT QD ON VA AFFICHER 1 SEUL MSG
-  /** 
-  for(let i=0; i<content.length; i++){
-    console.log("ID d'une pers msg :"+content[i].USERID);
-    
-    //si le msg est envoyé par la personne connectée
-    if(content[i].USERID == iduser){
-      //le msg est envoyé par l'utilisateur (et non reçu)
-      //setSensMsg(1);
-      console.log("msg envoye :");
-    }
-  }
-  */
-=======
   }, [setIdUser]); //val par defaut de setIdUser
 
   console.log("iduser av return:"+iduser); //correct uniquemt pr navigateur (pas serveur)
@@ -151,7 +104,6 @@ function quelSensMsg(idutil, idenvoyeur){
   if (loading) {
     return <div>Loading...</div>;
   }
->>>>>>> Stashed changes
 
   return (
     <>
@@ -182,18 +134,10 @@ function quelSensMsg(idutil, idenvoyeur){
               {/* Fonction d'affichage remplie avec les résultats de la requete SQL dans api/getMsgs.js */}
               {content.map((msg) => (
                 <TextMsg
-<<<<<<< Updated upstream
-                  texte = {post.TEXTE}
-                  nomdest = {post.PRENOM +" "+ post.NOM +post.USERID}  
-                  pfpdest = {post.PHOTO}
-                  recu0envoye1 = {quelSensMsg(iduser, post.USERID)} // 0 ou 1 renvoyé par la fonction
-                  
-=======
                   texte = {msg.target_txt}
                   nomdest = {msg.target_pren +" "+ msg.target_nom}  
                   pfpdest = {msg.target_pfp}
                   recu0envoye1 = {msg.target_sensmsg} // 0 ou 1 renvoyé par la fonction
->>>>>>> Stashed changes
                 />  
                 //BONUS : fonction pour séparer les discussions entre les gens. 
                 //Autre requete pour obtenir le(s) USERID des destinataires ? (puis une requete par discussion)

@@ -11,26 +11,6 @@ import withAuth from './withAuth';
 function Profil(props) {
   const isAuthenticated = true;
 
-<<<<<<< Updated upstream
-  const utilisateur = props.utilisateur_data;
-  const [iduser, setIdUser] = useState('');
-  const [compt, setCompt] = useState(0);
-
-  //recuperer utlisateur co
-  useEffect(() => {
-    try {
-      const storedUser = JSON.parse(localStorage.getItem('user')).id;
-      if (storedUser) {
-        setIdUser(storedUser); //récuperer l'identifiant de l'utilisateur
-        
-      }
-    } catch (error) {
-      console.log('Erreur lors du parsing du JSON depuis le localStorage');
-    }
-  }, [setIdUser]);
-  
-
-=======
   const [iduser, setIdUser] = useState('');
   const [compt, setCompt] = useState(0);
   const [utilisateur, setUtilisateur] = useState([]);
@@ -73,7 +53,6 @@ function Profil(props) {
   }, []);
   
 
->>>>>>> Stashed changes
   const [varPhoto, setVarPhoto] = useState('step-primary');
   const [varImFond, setVarImFond] = useState('step-primary');
   const [varDescr, setVarDescr] = useState('step-primary');
@@ -82,25 +61,9 @@ function Profil(props) {
   const [nbChampsRemplis, setNbChampsRemplis] = useState(3);
 
   useEffect(() => {
-<<<<<<< Updated upstream
-    for (let i = 0; i < utilisateur.length; i++) {
-      if (utilisateur[i].IDENTIFIANT === iduser) {
-        setCompt(i);
-        break;
-      }
-    }
  
     let completedFields = 0;
 
-    console.log("connecte en tant que : "+iduser);
-    console.log("verif : "+compt); //vaut 0 ?                                            /******* PB ICI */
-    console.log(utilisateur[iduser-1]); //iduser-1 car la tableau d'utilisateurs commence à 0 ici (et à 1 dans la BDD)
-
-=======
- 
-    let completedFields = 0;
-
->>>>>>> Stashed changes
     //verifier si les champs sont remplis
     if (utilisateur[compt]?.PHOTO !== '') {
       completedFields++;
@@ -168,19 +131,4 @@ function Profil(props) {
   );
 }
 
-<<<<<<< Updated upstream
-export async function getStaticProps() {
-  const utilisateur_raw = await fetch('http://localhost:3000/api/getUsers');
-  const utilisateur = await utilisateur_raw.json();
-  const utilisateur_data = utilisateur.results;
-
-  return {
-    props: {
-      utilisateur_data,
-    },
-  };
-}
-
-=======
->>>>>>> Stashed changes
 export default withAuth(Profil);
