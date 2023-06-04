@@ -11,6 +11,7 @@ import withAuth from './withAuth';
 function Profil(props) {
   const isAuthenticated = true;
 
+<<<<<<< Updated upstream
   const utilisateur = props.utilisateur_data;
   const [iduser, setIdUser] = useState('');
   const [compt, setCompt] = useState(0);
@@ -29,6 +30,50 @@ function Profil(props) {
   }, [setIdUser]);
   
 
+=======
+  const [iduser, setIdUser] = useState('');
+  const [compt, setCompt] = useState(0);
+  const [utilisateur, setUtilisateur] = useState([]);
+  const [content, setContent] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  //recuperer utlisateur co
+  useEffect(() => {
+    try {
+      const storedUser = JSON.parse(localStorage.getItem('user')).id;
+      if (storedUser) {
+        setIdUser(storedUser); //récuperer l'identifiant de l'utilisateur
+        
+      }
+    } catch (error) {
+      console.log('Erreur lors du parsing du JSON depuis le localStorage');
+    }
+  }, [setIdUser]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const me = JSON.parse(localStorage.getItem('user')).id;
+        const user_raw = await fetch(`/api/getUser?IDENTIFIANT=${me}`);
+        const user = await user_raw.json();
+        const user_data = user.results || [];
+        setContent(user_data);
+        setLoading(false);
+        console.log(user_data);
+        setUtilisateur(user_data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+
+>>>>>>> Stashed changes
   const [varPhoto, setVarPhoto] = useState('step-primary');
   const [varImFond, setVarImFond] = useState('step-primary');
   const [varDescr, setVarDescr] = useState('step-primary');
@@ -37,6 +82,7 @@ function Profil(props) {
   const [nbChampsRemplis, setNbChampsRemplis] = useState(3);
 
   useEffect(() => {
+<<<<<<< Updated upstream
     for (let i = 0; i < utilisateur.length; i++) {
       if (utilisateur[i].IDENTIFIANT === iduser) {
         setCompt(i);
@@ -50,6 +96,11 @@ function Profil(props) {
     console.log("verif : "+compt); //vaut 0 ?                                            /******* PB ICI */
     console.log(utilisateur[iduser-1]); //iduser-1 car la tableau d'utilisateurs commence à 0 ici (et à 1 dans la BDD)
 
+=======
+ 
+    let completedFields = 0;
+
+>>>>>>> Stashed changes
     //verifier si les champs sont remplis
     if (utilisateur[compt]?.PHOTO !== '') {
       completedFields++;
@@ -117,6 +168,7 @@ function Profil(props) {
   );
 }
 
+<<<<<<< Updated upstream
 export async function getStaticProps() {
   const utilisateur_raw = await fetch('http://localhost:3000/api/getUsers');
   const utilisateur = await utilisateur_raw.json();
@@ -129,4 +181,6 @@ export async function getStaticProps() {
   };
 }
 
+=======
+>>>>>>> Stashed changes
 export default withAuth(Profil);

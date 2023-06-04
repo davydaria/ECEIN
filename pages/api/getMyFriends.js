@@ -15,17 +15,16 @@ export default async function handler(req, res) {
     const [data] = await dbconnection.query(query, values);
     dbconnection.end();
     // res.status(200).json( data );
-
-    await Promise.all(data.map(async (amis) => {
-      const user1Data = await fetch(`http://localhost:3000/api/getUser?IDENTIFIANT=${amis.USERID1}`);
-      const user2Data = await fetch(`http://localhost:3000/api/getUser?IDENTIFIANT=${amis.USERID2}`);
-      const [user1Json, user2Json] = await Promise.all([user1Data.json(), user2Data.json()]);
-      const user1IDENTIFIANT = user1Json.results[0].IDENTIFIANT;
-      const user2IDENTIFIANT = user2Json.results[0].IDENTIFIANT;
-      amis.USERID_TXT1 = user1IDENTIFIANT;
-      amis.USERID_TXT2 = user2IDENTIFIANT;
-    }));
     
+    const user1 = fetch(`http://localhost:3000/api/getUser?IDENTIFIANT=${data[0].USERID1}`)
+    const user2 = fetch(`http://localhost:3000/api/getUser?IDENTIFIANT=${data[0].USERID2}`)
+    const [user1Data, user2Data] = await Promise.all([user1, user2])
+    const [user1Json, user2Json] = await Promise.all([user1Data.json(), user2Data.json()])
+    const user1IDENTIFIANT = user1Json.results[0].IDENTIFIANT
+    const user2IDENTIFIANT = user2Json.results[0].IDENTIFIANT
+
+    data[0].USERID_TXT1 = user1IDENTIFIANT
+    data[0].USERID_TXT2 = user2IDENTIFIANT
     
 
     res.status(200).json({ results: data });
